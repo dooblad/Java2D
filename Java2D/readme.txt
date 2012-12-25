@@ -1,0 +1,2 @@
+To use this code, you can clone this repository into your favorite IDE then create a .jar file out of the project.
+For an example of how to use this library, navigate to the package com.doobs.java2d.test and look at the TestGame class.
