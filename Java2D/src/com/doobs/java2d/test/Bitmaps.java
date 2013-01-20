@@ -4,23 +4,15 @@ import com.doobs.java2d.gfx.Bitmap;
 import com.doobs.java2d.gfx.BitmapLoader;
 
 public class Bitmaps {
-	private BitmapLoader loader;
+	private static BitmapLoader loader;
 	
-	public static Bitmap swirl;
+	public static Bitmap cube;
 	
-	public Bitmaps() {
-		
-	}
-	public Bitmaps(BitmapLoader bitmapLoader) {
-		this.loader = bitmapLoader;
-		init();
+	public static void init() {
+		cube = loader.loadBitmap("res/cube.png");
 	}
 	
-	public void init() {
-		swirl = loader.loadBitmap("res/swirl.png");
-	}
-	
-	public void setBitmapLoader(BitmapLoader bitmapLoader) {
-		this.loader = bitmapLoader;
+	public static void setBitmapLoader(BitmapLoader bitmapLoader) {
+		loader = bitmapLoader;
 	}
 }

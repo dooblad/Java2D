@@ -20,15 +20,16 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	}
 	
 	// KeyListener Events
+	public void keyPressed(KeyEvent e) {
+		keys[e.getKeyCode()] = true;
+	}
+	public void keyReleased(KeyEvent e) {
+		keys[e.getKeyCode()] = false;
+	}
 	public void keyTyped(KeyEvent e) {
 		
 	}
-	public void keyReleased(KeyEvent e) {
-		
-	}
-	public void keyPressed(KeyEvent e) {
-		
-	}
+
 	
 	// MouseListener Events
 	public void mouseClicked(MouseEvent e) {
