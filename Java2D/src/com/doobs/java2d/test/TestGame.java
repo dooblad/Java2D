@@ -6,9 +6,9 @@ import com.doobs.java2d.gfx.Screen;
 import com.doobs.java2d.input.InputHandler;
 
 public class TestGame extends GameLoop{
-	private static final int WIDTH = 320, HEIGHT = 240;
-	private static final int SCALE = 2;
-	private static final String TITLE = "TEST";
+	private static final int WIDTH = 160, HEIGHT = 120;
+	private static final int SCALE = 4;
+	private static final String TITLE = "Test Game";
 	private static final boolean VSYNC = true;
 	
 	private Game2D game;

@@ -58,7 +58,6 @@ public class Game2D extends Canvas implements Runnable{
 		this.title = title;
 		this.gameLoop = gameLoop;
 		Dimension canvasSize = new Dimension(width * scale, height * scale);
-		setSize(canvasSize);
 		setPreferredSize(canvasSize);
 		setMinimumSize(canvasSize);
 		setMaximumSize(canvasSize);
@@ -146,8 +145,7 @@ public class Game2D extends Canvas implements Runnable{
 	public void render() {
 		graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
 		gameLoop.render(screen);
-		//graphics.drawImage(screen.image, 0, 0, width * scale, height * scale, null);
-		graphics.drawImage(screen.image, 0, 0, width * 3, height * 3, null);
+		graphics.drawImage(screen.image, 0, 0, width * scale, height * scale, null);
 		graphics.dispose();
 		bufferStrategy.show();
 	}
