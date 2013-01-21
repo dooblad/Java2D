@@ -15,7 +15,6 @@ import com.doobs.java2d.input.InputHandler;
 public class Game2D extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;
 
-	private int width, height;
 	private int scale;
 	private String title;
 	
@@ -51,8 +50,6 @@ public class Game2D extends Canvas implements Runnable{
 		this(width, height, scale, title, null);
 	}
 	public Game2D(int width, int height, int scale, String title, GameLoop gameLoop) {
-		this.width = width;
-		this.height = height;
 		this.scale = scale;
 		this.title = title;
 		this.gameLoop = gameLoop;
@@ -148,24 +145,12 @@ public class Game2D extends Canvas implements Runnable{
 	}
 	
 	// Getters and Setters
-	public int getWidth() {
-		return width;
-	}
-	public void setWidth(int width) {
-		this.width = width;
-	}
-	public int getHeight() {
-		return height;
-	}
-	public void setHeight(int height) {
-		this.height = height;
-	}
 	public int getScale() {
 		return scale;
 	}
 	public void setScale(int scale) {
 		this.scale = scale;
-		if(scale > 0) frame.setSize(width * scale, height * scale);
+		if(scale > 0) frame.setSize(getWidth() / this.scale * scale, getHeight() / this.scale * scale);
 	}
 	public String getTitle() {
 		return title;
