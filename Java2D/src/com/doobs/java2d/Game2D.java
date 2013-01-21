@@ -3,8 +3,7 @@ package com.doobs.java2d;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -28,7 +27,7 @@ public class Game2D extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running;
 	
-	private Graphics2D graphics;
+	private Graphics graphics;
 	private BufferStrategy bufferStrategy;
 	
 	private InputHandler input;
@@ -58,19 +57,19 @@ public class Game2D extends Canvas implements Runnable{
 		this.title = title;
 		this.gameLoop = gameLoop;
 		Dimension canvasSize = new Dimension(width * scale, height * scale);
+		setSize(canvasSize);
 		setPreferredSize(canvasSize);
 		setMinimumSize(canvasSize);
 		setMaximumSize(canvasSize);
 		screen = new Screen(width, height);
 		frame = new JFrame(title);
-		frame.setLayout(new BorderLayout());
-		frame.add(this, BorderLayout.CENTER);
-		frame.pack();
-		frame.setAlwaysOnTop(true);
 		frame.setFocusable(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
+		frame.setLayout(new BorderLayout());
+		frame.add(this, BorderLayout.CENTER);
+		frame.pack();
 		frame.setVisible(true);
 		input = new InputHandler(this);
 		bitmapLoader = new BitmapLoader();
@@ -138,14 +137,12 @@ public class Game2D extends Canvas implements Runnable{
 	public void preRender() {
 		createBufferStrategy(2);
 		bufferStrategy = getBufferStrategy();
-		graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
-		graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 	}
 	
 	public void render() {
-		graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
+		graphics = bufferStrategy.getDrawGraphics();
 		gameLoop.render(screen);
-		graphics.drawImage(screen.image, 0, 0, width * scale, height * scale, null);
+		graphics.drawImage(screen.image, 0, 0, getWidth(), getHeight(), null);
 		graphics.dispose();
 		bufferStrategy.show();
 	}
@@ -188,7 +185,7 @@ public class Game2D extends Canvas implements Runnable{
 	public boolean isRunning() {
 		return running;
 	}
-	public Graphics2D getGraphics() {
+	public Graphics getGraphics() {
 		return graphics;
 	}
 	public int getFps() {
