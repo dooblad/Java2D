@@ -36,7 +36,7 @@ public class TestGame extends GameLoop{
 	}
 	
 	public void printFPS() {
-		System.out.println("FPS: " + game.getFps());
+		System.out.println("FPS: " + game.getFPS());
 	}
 	
 	public static void main(String[] args) {

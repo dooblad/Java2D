@@ -1,7 +1,7 @@
 package com.doobs.java2d.gfx;
 
 public class Bitmap {
-	public int width, height;
+	private int width, height;
 	public int[] pixels;
 
 	public Bitmap(int width, int height) {
@@ -54,4 +54,17 @@ public class Bitmap {
 		}
 	}
 
+	// Getters and setters
+	public int getWidth() {
+		return width;
+	}
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	public int getHeight() {
+		return height;
+	}
+	public void setHeight(int height) {
+		this.height = height;
+	}
 }

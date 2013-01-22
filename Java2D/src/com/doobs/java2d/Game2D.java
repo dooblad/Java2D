@@ -62,11 +62,11 @@ public class Game2D extends Canvas implements Runnable{
 		frame = new JFrame(title);
 		frame.setFocusable(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setLayout(new BorderLayout());
 		frame.add(this, BorderLayout.CENTER);
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		input = new InputHandler(this);
 		bitmapLoader = new BitmapLoader();
@@ -173,7 +173,7 @@ public class Game2D extends Canvas implements Runnable{
 	public Graphics getGraphics() {
 		return graphics;
 	}
-	public int getFps() {
+	public int getFPS() {
 		return fps;
 	}
 	public boolean isVSync() {
