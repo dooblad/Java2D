@@ -8,6 +8,11 @@ public class Bitmaps {
 	
 	public static Bitmap cube;
 	
+	public static void init(BitmapLoader bitmapLoader) {
+		loader = bitmapLoader;
+		init();
+	}
+	
 	public static void init() {
 		cube = loader.loadBitmap("res/cube.png");
 	}

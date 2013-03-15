@@ -12,14 +12,11 @@ public class TestGame extends GameLoop{
 	private static final boolean PRINT_FPS = true;
 	private static final boolean VSYNC = false;
 	
-	private Game2D game;
-	
 	private MoveCube cube;
 	
 	public TestGame() {
-		game = new Game2D(WIDTH, HEIGHT, SCALE, TITLE, this);
-		Bitmaps.setBitmapLoader(game.getBitmapLoader());
-		Bitmaps.init();
+		game = new Game2D(WIDTH, HEIGHT, SCALE, TITLE, new GameLoop());//this);
+		Bitmaps.init(game.getBitmapLoader());
 		cube = new MoveCube();
 		game.setPrintFPS(PRINT_FPS);
 		game.setVSync(VSYNC);
@@ -31,12 +28,12 @@ public class TestGame extends GameLoop{
 	}
 
 	public void render(Screen screen) {
-		screen.fill(0xFFFF0000);
+		screen.fill(0xFF0F0000);
 		cube.render(screen);
 	}
 	
 	public void printFPS() {
-		System.out.println("FPS: " + game.getFPS());
+		
 	}
 	
 	public static void main(String[] args) {

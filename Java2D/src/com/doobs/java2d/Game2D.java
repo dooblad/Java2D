@@ -1,3 +1,11 @@
+/** 
+ * Two-dimensional software rendering library to eliminate boilerplate code. The library is geared towards game development 
+ * and provides the easy creation of a graphics context.
+ *  
+ * @author Logan Weber
+ * @version 1.1
+ */
+
 package com.doobs.java2d;
 
 import java.awt.BorderLayout;
@@ -12,8 +20,13 @@ import com.doobs.java2d.gfx.BitmapLoader;
 import com.doobs.java2d.gfx.Screen;
 import com.doobs.java2d.input.InputHandler;
 
-public class Game2D extends Canvas implements Runnable{
+public class Game2D extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
+	
+	private static final int DEFAULT_WIDTH = 640;
+	private static final int DEFAULT_HEIGHT = 480;
+	private static final int DEFAULT_SCALE = 1;
+	private static final String DEFAULT_TITLE = "Generic Java2D Window";
 
 	private int scale;
 	private String title;
@@ -37,18 +50,51 @@ public class Game2D extends Canvas implements Runnable{
 	
 	private GameLoop gameLoop;
 	
+	/**
+	 * Creates a Game2D object with default settings.
+	 */
 	public Game2D() {
-		
+		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SCALE, DEFAULT_TITLE, new GameLoop());
 	}
+	
+	/**
+	 * Creates a Game2D object and a window with the specified width and height.
+	 * @param width the width of the window.
+	 * @param height the height of the window.
+	 */
 	public Game2D(int width, int height) {
-		this(width, height, 1);
+		this(width, height, DEFAULT_SCALE);
 	}
+	
+	/**
+	 * Creates a Game2D object and a window with the specified width, height, and scaling factor.
+	 * @param width the width of the window.
+	 * @param height the height of the window.
+	 * @param scale the scaling factor for the pixels.
+	 */
 	public Game2D(int width, int height, int scale) {
-		this(width, height, scale, null);
+		this(width, height, scale, DEFAULT_TITLE);
 	}
+	
+	/**
+	 * Creates a Game2D object and a window with the specified width, height, scaling factor, and title.
+	 * @param width the width of the window.
+	 * @param height the height of the window.
+	 * @param scale the scaling factor for the pixels.
+	 * @param title the title of the window.
+	 */
 	public Game2D(int width, int height, int scale, String title) {
-		this(width, height, scale, title, null);
+		this(width, height, scale, title, new GameLoop());
 	}
+	
+	/**
+	 * Creates a Game2D object and a window with the specified width, height, scaling factor, title, and game loop.
+	 * @param width the width of the window.
+	 * @param height the height of the window.
+	 * @param scale the scaling factor for the pixels.
+	 * @param title the title of the window.
+	 * @param gameLoop the GameLoop object with custom tick, render, and printFPS methods.
+	 */
 	public Game2D(int width, int height, int scale, String title, GameLoop gameLoop) {
 		this.scale = scale;
 		this.title = title;
@@ -72,6 +118,9 @@ public class Game2D extends Canvas implements Runnable{
 		bitmapLoader = new BitmapLoader();
 	}
 	
+	/**
+	 * Starts the main working thread of the Game2D object and begins to run the game.
+	 */
 	public void start() {
 		if (!running) {
 			thread = new Thread(this);
@@ -80,6 +129,9 @@ public class Game2D extends Canvas implements Runnable{
 		}
 	}
 	
+	/**
+	 * Begins the main game loop.
+	 */
 	public void run() {
 		preRender();
 		
@@ -118,6 +170,9 @@ public class Game2D extends Canvas implements Runnable{
 		}
 	}
 	
+	/**
+	 * Stops the game and exits the application.
+	 */
 	public void stop() {
 		if (running) {
 			running = false;
@@ -131,11 +186,17 @@ public class Game2D extends Canvas implements Runnable{
 		}
 	}
 	
+	/**
+	 * Initializes double buffering and gets a buffer strategy.
+	 */
 	public void preRender() {
 		createBufferStrategy(2);
 		bufferStrategy = getBufferStrategy();
 	}
 	
+	/**
+	 * Renders the game into an array and displays it on the screen.
+	 */
 	public void render() {
 		graphics = bufferStrategy.getDrawGraphics();
 		gameLoop.render(screen);
@@ -145,46 +206,102 @@ public class Game2D extends Canvas implements Runnable{
 	}
 	
 	// Getters and Setters
+	/**
+	 * @return the current scaling factor being applied to the image.
+	 */
 	public int getScale() {
 		return scale;
 	}
+	
+	/**
+	 * @param scale the new scale to be applied to the image.
+	 */
 	public void setScale(int scale) {
 		this.scale = scale;
 		if(scale > 0) frame.setSize(getWidth() / this.scale * scale, getHeight() / this.scale * scale);
 	}
+	
+	/**
+	 * @return the current title of the window.
+	 */
 	public String getTitle() {
 		return title;
 	}
+	
+	/**
+	 * @param title the new title to be applied to the window.
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	/**
+	 * @return the BitmapLoader object to load images into the game.
+	 */
 	public BitmapLoader getBitmapLoader() {
 		return bitmapLoader;
 	}
+	
+	/**
+	 * @return the GameLoop object currently being used by the game.
+	 */
 	public GameLoop getGameLoop() {
 		return gameLoop;
 	}
+	
+	/**
+	 * @param gameLoop the GameLoop object to replace the current one.
+	 */
 	public void setGameLoop(GameLoop gameLoop) {
 		this.gameLoop = gameLoop;
 	}
+	
+	/**
+	 * @return whether the game thread is currently running.
+	 */
 	public boolean isRunning() {
 		return running;
 	}
+	
+	/**
+	 * @return a graphics object to draw to the window.
+	 */
 	public Graphics getGraphics() {
 		return graphics;
 	}
+	
+	/**
+	 * @return the current number of frames rendered per second.
+	 */
 	public int getFPS() {
 		return fps;
 	}
+	
+	/**
+	 * @return whether the game is limited to 60 frames per second.
+	 */
 	public boolean isVSync() {
 		return vSync;
 	}
+	
+	/**
+	 * @param vSync set whether the game will be limited to 60 frames per second.
+	 */
 	public void setVSync(boolean vSync) {
 		this.vSync = vSync;
 	}
+	
+	/**
+	 * @return whether the game loop prints the number of frames rendered per second.
+	 */
 	public boolean getPrintFps() {
 		return printFps;
 	}
+	
+	/**
+	 * @param printFps set whether the game loop will print the number of frames rendered 
+	 * per second based on the current game loop object's printFPS method.
+	 */
 	public void setPrintFPS(boolean printFps) {
 		this.printFps = printFps;
 	}

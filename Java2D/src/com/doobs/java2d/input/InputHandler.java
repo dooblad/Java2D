@@ -4,10 +4,10 @@ import java.awt.Component;
 import java.awt.event.*;
 
 public class InputHandler implements KeyListener, MouseListener, MouseMotionListener {
-	public boolean[] keys = new boolean[128];
-	public int oldMouseX, oldMouseY;
-	public int mouseX, mouseY;
-	public boolean mousePressed = false;
+	private boolean[] keys = new boolean[128];
+	private int oldMouseX, oldMouseY;
+	private int mouseX, mouseY;
+	private boolean mousePressed = false;
 	
 	public InputHandler(Component component) {
 		component.addKeyListener(this);
@@ -23,9 +23,11 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
 	}
+	
 	public void keyReleased(KeyEvent e) {
 		keys[e.getKeyCode()] = false;
 	}
+	
 	public void keyTyped(KeyEvent e) {
 		
 	}
@@ -35,6 +37,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	public void mouseClicked(MouseEvent e) {
 		
 	}
+	
 	public void mousePressed(MouseEvent e) {
 		oldMouseX = mouseX;
 		oldMouseY = mouseY;
@@ -42,9 +45,11 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		mouseY = e.getY();
 		mousePressed = true;
 	}
+	
 	public void mouseReleased(MouseEvent e) {
 		mousePressed = false;
 	}
+	
 	public void mouseDragged(MouseEvent e) {
 		
 	}
@@ -54,18 +59,37 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		mouseX = e.getX();
 		mouseY = e.getY();
 	}
+	
 	public void mouseEntered(MouseEvent e) {
 		
 	}
+	
 	public void mouseExited(MouseEvent e) {
 		
 	}
 
+	// Getters and setters
+	public boolean[] getKeys() {
+		return keys;
+	}
 
+	public int getOldMouseX() {
+		return oldMouseX;
+	}
 
-	
+	public int getOldMouseY() {
+		return oldMouseY;
+	}
 
-	
+	public int getMouseX() {
+		return mouseX;
+	}
 
+	public int getMouseY() {
+		return mouseY;
+	}
 
+	public boolean isMousePressed() {
+		return mousePressed;
+	}
 }
