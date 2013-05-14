@@ -15,7 +15,7 @@ public class TestGame extends GameLoop{
 	private MoveCube cube;
 	
 	public TestGame() {
-		game = new Game2D(WIDTH, HEIGHT, SCALE, TITLE, new GameLoop());//this);
+		game = new Game2D(WIDTH, HEIGHT, SCALE, TITLE, this);
 		Bitmaps.init(game.getBitmapLoader());
 		cube = new MoveCube();
 		game.setPrintFPS(PRINT_FPS);

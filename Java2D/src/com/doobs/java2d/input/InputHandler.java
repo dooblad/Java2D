@@ -4,7 +4,7 @@ import java.awt.Component;
 import java.awt.event.*;
 
 public class InputHandler implements KeyListener, MouseListener, MouseMotionListener {
-	private boolean[] keys = new boolean[128];
+	public boolean[] keys = new boolean[128];
 	private int oldMouseX, oldMouseY;
 	private int mouseX, mouseY;
 	private boolean mousePressed = false;
