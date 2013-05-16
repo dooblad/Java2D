@@ -1,5 +1,7 @@
 package com.doobs.java2d.test;
 
+import java.awt.event.KeyEvent;
+
 import com.doobs.java2d.Game2D;
 import com.doobs.java2d.GameLoop;
 import com.doobs.java2d.gfx.Screen;
@@ -24,6 +26,8 @@ public class TestGame extends GameLoop{
 	}
 	
 	public void tick(InputHandler input) {
+		if(input.keys[KeyEvent.VK_SPACE])
+			game.pause(60);
 		cube.tick(input);
 	}
 

@@ -31,6 +31,9 @@ public class Game2D extends Canvas implements Runnable {
 	private int scale;
 	private String title;
 	
+	private boolean paused;
+	private int pauseCounter;
+	
 	private JFrame frame;
 	private Screen screen;
 	
@@ -51,43 +54,6 @@ public class Game2D extends Canvas implements Runnable {
 	private GameLoop gameLoop;
 	
 	/**
-	 * Creates a Game2D object with default settings.
-	 */
-	public Game2D() {
-		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SCALE, DEFAULT_TITLE, new GameLoop());
-	}
-	
-	/**
-	 * Creates a Game2D object and a window with the specified width and height.
-	 * @param width the width of the window.
-	 * @param height the height of the window.
-	 */
-	public Game2D(int width, int height) {
-		this(width, height, DEFAULT_SCALE);
-	}
-	
-	/**
-	 * Creates a Game2D object and a window with the specified width, height, and scaling factor.
-	 * @param width the width of the window.
-	 * @param height the height of the window.
-	 * @param scale the scaling factor for the pixels.
-	 */
-	public Game2D(int width, int height, int scale) {
-		this(width, height, scale, DEFAULT_TITLE);
-	}
-	
-	/**
-	 * Creates a Game2D object and a window with the specified width, height, scaling factor, and title.
-	 * @param width the width of the window.
-	 * @param height the height of the window.
-	 * @param scale the scaling factor for the pixels.
-	 * @param title the title of the window.
-	 */
-	public Game2D(int width, int height, int scale, String title) {
-		this(width, height, scale, title, new GameLoop());
-	}
-	
-	/**
 	 * Creates a Game2D object and a window with the specified width, height, scaling factor, title, and game loop.
 	 * @param width the width of the window.
 	 * @param height the height of the window.
@@ -99,6 +65,8 @@ public class Game2D extends Canvas implements Runnable {
 		this.scale = scale;
 		this.title = title;
 		this.gameLoop = gameLoop;
+		paused = false;
+		pauseCounter = 0;
 		Dimension canvasSize = new Dimension(width * scale, height * scale);
 		setSize(canvasSize);
 		setPreferredSize(canvasSize);
@@ -116,6 +84,43 @@ public class Game2D extends Canvas implements Runnable {
 		frame.setVisible(true);
 		input = new InputHandler(this);
 		bitmapLoader = new BitmapLoader();
+	}
+	
+	/**
+	 * Creates a Game2D object and a window with the specified width, height, scaling factor, and title.
+	 * @param width the width of the window.
+	 * @param height the height of the window.
+	 * @param scale the scaling factor for the pixels.
+	 * @param title the title of the window.
+	 */
+	public Game2D(int width, int height, int scale, String title) {
+		this(width, height, scale, title, new GameLoop());
+	}
+	
+	/**
+	 * Creates a Game2D object and a window with the specified width, height, and scaling factor.
+	 * @param width the width of the window.
+	 * @param height the height of the window.
+	 * @param scale the scaling factor for the pixels.
+	 */
+	public Game2D(int width, int height, int scale) {
+		this(width, height, scale, DEFAULT_TITLE);
+	}
+	
+	/**
+	 * Creates a Game2D object and a window with the specified width and height.
+	 * @param width the width of the window.
+	 * @param height the height of the window.
+	 */
+	public Game2D(int width, int height) {
+		this(width, height, DEFAULT_SCALE);
+	}
+	
+	/**
+	 * Creates a Game2D object with default settings.
+	 */
+	public Game2D() {
+		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SCALE, DEFAULT_TITLE, new GameLoop());
 	}
 	
 	/**
@@ -149,7 +154,11 @@ public class Game2D extends Canvas implements Runnable {
 			previousTime = currentTime;
 			while (unprocessedSeconds >= secondsPerTick) {
 				unprocessedSeconds -= secondsPerTick;
-				gameLoop.tick(input);
+				if(!paused) {
+					gameLoop.tick(input);
+				} else if(--pauseCounter <= 0){
+					paused = false;
+				}
 				ticked = true;
 				tickCount++;
 				if (tickCount % 60 == 0) {
@@ -184,6 +193,15 @@ public class Game2D extends Canvas implements Runnable {
 				System.exit(0);
 			}
 		}
+	}
+	
+	/**
+	 * Paused the game for the specified number of ticks.
+	 * @param ticks the number of ticks for the game to wait
+	 */
+	public void pause(int ticks) {
+		paused = true;
+		pauseCounter = ticks;
 	}
 	
 	/**
