@@ -11,7 +11,7 @@ public class TestGame extends GameLoop{
 	private static final int WIDTH = 160, HEIGHT = 120;
 	private static final int SCALE = 4;
 	private static final String TITLE = "Test Game";
-	private static final boolean PRINT_FPS = true;
+	private static final boolean RENDER_FPS = true;
 	private static final boolean VSYNC = false;
 	
 	private MoveCube cube;
@@ -20,7 +20,7 @@ public class TestGame extends GameLoop{
 		game = new Game2D(WIDTH, HEIGHT, SCALE, TITLE, this);
 		Bitmaps.init(game.getBitmapLoader());
 		cube = new MoveCube();
-		game.setPrintFPS(PRINT_FPS);
+		game.setRenderFPS(RENDER_FPS);
 		game.setVSync(VSYNC);
 		game.start();
 	}

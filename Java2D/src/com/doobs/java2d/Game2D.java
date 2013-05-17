@@ -12,7 +12,9 @@ package com.doobs.java2d;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -229,8 +231,11 @@ public class Game2D extends Canvas implements Runnable {
 		graphics = bufferStrategy.getDrawGraphics();
 		gameLoop.render(screen);
 		graphics.drawImage(screen.image, 0, 0, getWidth(), getHeight(), null);
-		if(renderFPS)
-			graphics.drawString(printFPS + " ", 3, 3);
+		if(renderFPS) {
+			graphics.setColor(Color.WHITE);
+			graphics.setFont(new Font("consolas", 0, 16));
+			graphics.drawString(fps + " ", 3, 15);
+		}
 		graphics.dispose();
 		bufferStrategy.show();
 	}
@@ -242,6 +247,9 @@ public class Game2D extends Canvas implements Runnable {
 	public void stopInput(int ticks) {
 		inputStopped = true;
 		inputStopCounter = ticks;
+		for(int i = 0; i < input.keys.length; i++) {
+			input.keys[i] = false;
+		}
 	}
 	
 	// Getters and Setters

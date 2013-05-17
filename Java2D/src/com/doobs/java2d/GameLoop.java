@@ -32,6 +32,7 @@ public class GameLoop {
 	/**
 	 * @deprecated
 	 * A structural method that is not necessary to implement unless the FPS is needed to be displayed.
+	 * setRenderFPS(true) is recommended instead of this method.
 	 */
 	public void printFPS() {
 		//System.out.println("FPS: " + game.getFPS());
