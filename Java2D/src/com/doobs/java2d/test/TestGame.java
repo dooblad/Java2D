@@ -2,8 +2,6 @@ package com.doobs.java2d.test;
 
 import java.io.IOException;
 
-import org.newdawn.easyogg.OggClip;
-
 import com.doobs.java2d.Game2D;
 import com.doobs.java2d.GameLoop;
 import com.doobs.java2d.gfx.Screen;
