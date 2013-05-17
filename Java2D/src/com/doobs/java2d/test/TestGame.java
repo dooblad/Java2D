@@ -8,7 +8,6 @@ import com.doobs.java2d.Game2D;
 import com.doobs.java2d.GameLoop;
 import com.doobs.java2d.gfx.Screen;
 import com.doobs.java2d.input.InputHandler;
-import com.doobs.java2d.sound.Sound;
 
 public class TestGame extends GameLoop{
 	private static final int WIDTH = 160, HEIGHT = 120;
@@ -18,14 +17,11 @@ public class TestGame extends GameLoop{
 	private static final boolean VSYNC = false;
 	
 	private MoveCube cube;
-	private Sound sound;
 	
 	public TestGame() {
 		game = new Game2D(WIDTH, HEIGHT, SCALE, TITLE, this);
 		Bitmaps.init(game.getBitmapLoader());
 		cube = new MoveCube();
-		sound = new Sound("tetris.ogg");
-		sound.loop();
 		game.setPrintFPS(PRINT_FPS);
 		game.setVSync(VSYNC);
 		game.start();
