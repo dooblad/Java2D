@@ -48,6 +48,8 @@ public class Game2D extends Canvas implements Runnable {
 	private BufferStrategy bufferStrategy;
 	
 	private InputHandler input;
+	private int inputStopCounter;
+	private boolean inputStopped;
 	
 	private int fps;
 	private boolean vSync;
@@ -69,6 +71,8 @@ public class Game2D extends Canvas implements Runnable {
 		this.gameLoop = gameLoop;
 		paused = false;
 		pauseCounter = 0;
+		inputStopCounter = 0;
+		inputStopped = false;
 		Dimension canvasSize = new Dimension(width * scale, height * scale);
 		setSize(canvasSize);
 		setPreferredSize(canvasSize);
@@ -156,6 +160,10 @@ public class Game2D extends Canvas implements Runnable {
 			previousTime = currentTime;
 			while (unprocessedSeconds >= secondsPerTick) {
 				unprocessedSeconds -= secondsPerTick;
+				if(inputStopped && --inputStopCounter <= 0) {
+					inputStopped = false;
+					inputStopCounter = 0;
+				}
 				if(!paused) {
 					gameLoop.tick(input);
 				} else if(--pauseCounter <= 0){
@@ -199,7 +207,7 @@ public class Game2D extends Canvas implements Runnable {
 	
 	/**
 	 * Paused the game for the specified number of ticks.
-	 * @param ticks the number of ticks for the game to wait
+	 * @param ticks the number of ticks for the game to wait.
 	 */
 	public void pause(int ticks) {
 		paused = true;
@@ -223,6 +231,15 @@ public class Game2D extends Canvas implements Runnable {
 		graphics.drawImage(screen.image, 0, 0, getWidth(), getHeight(), null);
 		graphics.dispose();
 		bufferStrategy.show();
+	}
+	
+	/**
+	 * Prevents player input for the specified number of ticks.
+	 * @param ticks the number of ticks to prevent input
+	 */
+	public void stopInput(int ticks) {
+		inputStopped = true;
+		inputStopCounter = ticks;
 	}
 	
 	// Getters and Setters
@@ -288,6 +305,13 @@ public class Game2D extends Canvas implements Runnable {
 	 */
 	public Graphics getGraphics() {
 		return graphics;
+	}
+	
+	/**
+	 * @return whether player input has been stopped.
+	 */
+	public boolean getInputStopped() {
+		return inputStopped;
 	}
 	
 	/**

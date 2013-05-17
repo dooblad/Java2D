@@ -1,7 +1,8 @@
 package com.doobs.java2d.input;
 
-import java.awt.Component;
 import java.awt.event.*;
+
+import com.doobs.java2d.Game2D;
 
 public class InputHandler implements KeyListener, MouseListener, MouseMotionListener {
 	public boolean[] keys = new boolean[128];
@@ -9,10 +10,13 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	private int mouseX, mouseY;
 	private boolean mousePressed = false;
 	
-	public InputHandler(Component component) {
-		component.addKeyListener(this);
-		component.addMouseListener(this);
-		component.addMouseMotionListener(this);
+	private Game2D game;
+	
+	public InputHandler(Game2D game) {
+		this.game = game;
+		game.addKeyListener(this);
+		game.addMouseListener(this);
+		game.addMouseMotionListener(this);
 		oldMouseX = 0;
 		oldMouseY = 0;
 		mouseX = 0;
@@ -21,7 +25,8 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	
 	// KeyListener Events
 	public void keyPressed(KeyEvent e) {
-		keys[e.getKeyCode()] = true;
+		if(!game.getInputStopped())
+			keys[e.getKeyCode()] = true;
 	}
 	
 	public void keyReleased(KeyEvent e) {
@@ -39,11 +44,13 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	}
 	
 	public void mousePressed(MouseEvent e) {
-		oldMouseX = mouseX;
-		oldMouseY = mouseY;
-		mouseX = e.getX();
-		mouseY = e.getY();
-		mousePressed = true;
+		if(!game.getInputStopped()) {
+			oldMouseX = mouseX;
+			oldMouseY = mouseY;
+			mouseX = e.getX();
+			mouseY = e.getY();
+			mousePressed = true;
+		}
 	}
 	
 	public void mouseReleased(MouseEvent e) {
@@ -56,8 +63,10 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
 	// MouseMotionListener Events
 	public void mouseMoved(MouseEvent e) {
-		mouseX = e.getX();
-		mouseY = e.getY();
+		if(!game.getInputStopped()) {
+			mouseX = e.getX();
+			mouseY = e.getY();
+		}
 	}
 	
 	public void mouseEntered(MouseEvent e) {
@@ -67,7 +76,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	public void mouseExited(MouseEvent e) {
 		
 	}
-
+	
 	// Getters and setters
 	public boolean[] getKeys() {
 		return keys;
