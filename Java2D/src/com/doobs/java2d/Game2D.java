@@ -1,6 +1,8 @@
 /** 
- * Two-dimensional software rendering library to eliminate boilerplate code. The library is geared towards game development 
- * and provides the easy creation of a graphics context.
+ * This is a two-dimensional software rendering library to eliminate boilerplate code. The library is geared towards game development 
+ * and provides the easy creation of a rendering context.
+ * 
+ * Libraries used: EasyOGG by Kevin Glass and JOrbis by JCraft
  *  
  * @author Logan Weber
  * @version 1.1

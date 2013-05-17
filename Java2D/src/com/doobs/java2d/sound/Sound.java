@@ -1,28 +1,37 @@
 package com.doobs.java2d.sound;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
+import java.io.IOException;
 
+import org.newdawn.easyogg.OggClip;
+
+/**
+ * This class only supports the OGG format due to its 
+ * usefulness in games for its small file size
+ */
 public class Sound {
-	private AudioClip clip;
+	private OggClip clip;
 
 	public Sound(String URL) {
 		try {
-			clip = Applet.newAudioClip(Sound.class.getResource(URL));
-		} catch (Throwable e) {
+			clip = new OggClip(URL);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void play() {
-		try {
-			new Thread() {
-				public void run() {
-					clip.play();
-				}
-			}.start();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+		clip.play();
+	}
+	
+	public void loop() {
+		clip.loop();
+	}
+	
+	public void resume() {
+		clip.resume();
+	}
+	
+	public void stop() {
+		clip.stop();
 	}
 }
