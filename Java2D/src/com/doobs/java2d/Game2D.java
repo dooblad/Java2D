@@ -53,7 +53,7 @@ public class Game2D extends Canvas implements Runnable {
 	
 	private int fps;
 	private boolean vSync;
-	private boolean printFps;
+	private boolean printFPS, renderFPS;
 	
 	private GameLoop gameLoop;
 	
@@ -174,7 +174,7 @@ public class Game2D extends Canvas implements Runnable {
 				if (tickCount % 60 == 0) {
 					fps = fpsTemp;
 					fpsTemp = 0;
-					if(printFps) {
+					if(printFPS) {
 						gameLoop.printFPS();
 					}
 				}
@@ -229,6 +229,8 @@ public class Game2D extends Canvas implements Runnable {
 		graphics = bufferStrategy.getDrawGraphics();
 		gameLoop.render(screen);
 		graphics.drawImage(screen.image, 0, 0, getWidth(), getHeight(), null);
+		if(renderFPS)
+			graphics.drawString(printFPS + " ", 3, 3);
 		graphics.dispose();
 		bufferStrategy.show();
 	}
@@ -338,15 +340,29 @@ public class Game2D extends Canvas implements Runnable {
 	/**
 	 * @return whether the game loop prints the number of frames rendered per second.
 	 */
-	public boolean getPrintFps() {
-		return printFps;
+	public boolean getPrintFPS() {
+		return printFPS;
 	}
 	
 	/**
-	 * @param printFps set whether the game loop will print the number of frames rendered 
+	 * @param printFPS set whether the game loop will print the number of frames rendered 
 	 * per second based on the current game loop object's printFPS method.
 	 */
-	public void setPrintFPS(boolean printFps) {
-		this.printFps = printFps;
+	public void setPrintFPS(boolean printFPS) {
+		this.printFPS = printFPS;
+	}
+	
+	/**
+	 * @return whether the game loop renders the number of frames rendered per second.
+	 */
+	public boolean getRenderFPS() {
+		return printFPS;
+	}
+	
+	/**
+	 * @param renderFPS set whether the game loop will render the number of frames rendered per second.
+	 */
+	public void setRenderFPS(boolean renderFPS) {
+		this.renderFPS = renderFPS;
 	}
 }
