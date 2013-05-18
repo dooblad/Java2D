@@ -38,6 +38,8 @@ public class Game2D extends Canvas implements Runnable {
 	private boolean paused;
 	private int pauseCounter;
 	
+	private Font defaultFont;
+	
 	private JFrame frame;
 	private Screen screen;
 	
@@ -73,6 +75,7 @@ public class Game2D extends Canvas implements Runnable {
 		this.gameLoop = gameLoop;
 		paused = false;
 		pauseCounter = 0;
+		defaultFont = new Font("Consolas", 0, 16);
 		inputStopCounter = 0;
 		inputStopped = false;
 		Dimension canvasSize = new Dimension(width * scale, height * scale);
@@ -232,9 +235,12 @@ public class Game2D extends Canvas implements Runnable {
 		gameLoop.render(screen);
 		graphics.drawImage(screen.image, 0, 0, getWidth(), getHeight(), null);
 		if(renderFPS) {
+			int fontSize = defaultFont.getSize();
+			graphics.setColor(Color.BLACK);
+			graphics.fillRect(0, 0, (fps + " ").length() * fontSize / 2, fontSize + 4);
 			graphics.setColor(Color.WHITE);
-			graphics.setFont(new Font("consolas", 0, 16));
-			graphics.drawString(fps + " ", 3, 15);
+			graphics.setFont(defaultFont);
+			graphics.drawString(fps + " ", 3, fontSize);
 		}
 		graphics.dispose();
 		bufferStrategy.show();
