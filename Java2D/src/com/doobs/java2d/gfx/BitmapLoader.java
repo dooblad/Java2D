@@ -16,6 +16,30 @@ public class BitmapLoader {
 		this.ignoredColors = ignoredColors;
 	}
 	
+	public Bitmap loadBitmap(BufferedImage image) {
+		int width = image.getWidth();
+		int height = image.getHeight();
+		Bitmap result = new Bitmap(width, height);
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				int col = image.getRGB(x, y);
+				if(ignoredColors != null) {
+					boolean writePixel = true;
+					for(int i = 0; i < ignoredColors.length; i++) {
+						if((col & 0xFFFFFF) == ignoredColors[i]) {
+							writePixel = false;
+						}
+					}
+					if(writePixel)
+						result.pixels[x + y * width] = image.getRGB(x, y);
+				} else {
+					result.pixels[x + y * width] = image.getRGB(x, y);
+				}
+			}
+		}
+		return result;
+	}
+	
 	public Bitmap loadBitmap(String URL) {
 		try {
 			BufferedImage image = ImageIO.read(new File(URL));
