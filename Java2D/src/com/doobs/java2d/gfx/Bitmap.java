@@ -41,6 +41,21 @@ public class Bitmap {
 			}
 		}
 	}
+	
+	public void drawColored(Bitmap bitmap, int color, int xo, int yo) {
+		for (int y = 0; y < bitmap.height; y++) {
+			int yy = y + yo;
+			if (yy < 0 || yy >= height)
+				continue;
+			for (int x = 0; x < bitmap.width; x++) {
+				int xx = x + xo;
+				if (xx < 0 || xx >= width)
+					continue;
+				if (bitmap.pixels[x + y * bitmap.width] < 0)
+					pixels[xx + yy * width] = color;
+			}
+		}
+	}
 
 	public void drawPoint(int color, int xo, int yo) {
 		if (xo < 0 || xo >= width || yo < 0 || yo >= height)

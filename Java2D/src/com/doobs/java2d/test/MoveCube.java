@@ -21,6 +21,7 @@ public class MoveCube {
 	}
 	
 	public void render(Screen screen) {
-		screen.draw(Bitmaps.cube, (int) x, (int) y);
+		//screen.draw(Bitmaps.cube, (int) x, (int) y);
+		screen.drawColored(Bitmaps.cube, 0xFFFF00FF, (int) x, (int) y);
 	}
 }
