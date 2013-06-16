@@ -12,7 +12,7 @@ public class BitmapLoader {
 	public BitmapLoader() {
 		
 	}
-	public BitmapLoader(int[] ignoredColors) {
+	public BitmapLoader(int... ignoredColors) {
 		this.ignoredColors = ignoredColors;
 	}
 	
@@ -149,7 +149,7 @@ public class BitmapLoader {
 	public int[] getIgnoredColors() {
 		return ignoredColors;
 	}
-	public void setIgnoredColors(int[] ignoredColors) {
+	public void setIgnoredColors(int... ignoredColors) {
 		this.ignoredColors = ignoredColors;
 	}
 }

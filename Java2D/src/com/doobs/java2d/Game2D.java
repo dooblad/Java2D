@@ -179,9 +179,9 @@ public class Game2D extends Canvas implements Runnable {
 				if (tickCount % 60 == 0) {
 					fps = fpsTemp;
 					fpsTemp = 0;
-					if(printFPS) {
+					/*if(printFPS) {
 						gameLoop.printFPS();
-					}
+					}*/
 				}
 			}
 
