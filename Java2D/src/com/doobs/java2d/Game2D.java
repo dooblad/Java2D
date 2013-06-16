@@ -158,7 +158,7 @@ public class Game2D extends Canvas implements Runnable {
 		int fpsTemp = 0;
 		long tickCount = 0;
 		requestFocus();
-
+		
 		while (running) {
 			long currentTime = System.nanoTime();
 			unprocessedSeconds += (currentTime - previousTime) / 1000000000.0;
@@ -171,6 +171,8 @@ public class Game2D extends Canvas implements Runnable {
 				}
 				if(!paused) {
 					gameLoop.tick(input);
+				} else if(pauseCounter == -1) {
+					gameLoop.tickPaused(input);
 				} else if(--pauseCounter <= 0){
 					paused = false;
 				}
@@ -211,12 +213,28 @@ public class Game2D extends Canvas implements Runnable {
 	}
 	
 	/**
-	 * Paused the game for the specified number of ticks.
+	 * Pauses the game for the specified number of ticks.
 	 * @param ticks the number of ticks for the game to wait.
 	 */
-	public void pause(int ticks) {
+	public void pauseFor(int ticks) {
 		paused = true;
 		pauseCounter = ticks;
+	}
+	
+	/**
+	 * Pauses the game until the unpause() method is called.
+	 */
+	public void pause() {
+		paused = true;
+		pauseCounter = -1;
+	}
+	
+	/**
+	 * Unpauses the game.
+	 */
+	public void unpause() {
+		paused = false;
+		pauseCounter = 0;
 	}
 	
 	/**
@@ -232,7 +250,11 @@ public class Game2D extends Canvas implements Runnable {
 	 */
 	public void render() {
 		graphics = bufferStrategy.getDrawGraphics();
-		gameLoop.render(screen);
+		System.out.println(paused);
+		if(paused)
+			gameLoop.renderPaused(screen);
+		else
+			gameLoop.render(screen);
 		graphics.drawImage(screen.image, 0, 0, getWidth(), getHeight(), null);
 		if(renderFPS) {
 			int fontSize = defaultFont.getSize();

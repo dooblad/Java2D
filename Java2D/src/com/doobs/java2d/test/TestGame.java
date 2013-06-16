@@ -27,8 +27,13 @@ public class TestGame extends GameLoop{
 	
 	public void tick(InputHandler input) {
 		if(input.keys[KeyEvent.VK_SPACE])
-			game.stopInput(30);
+			game.pause();
 		cube.tick(input);
+	}
+	
+	public void tickPaused(InputHandler input) {
+		if(input.keys[KeyEvent.VK_ENTER])
+			game.unpause();
 	}
 
 	public void render(Screen screen) {
@@ -36,8 +41,9 @@ public class TestGame extends GameLoop{
 		cube.render(screen);
 	}
 	
-	public void printFPS() {
-		
+	public void renderPaused(Screen screen) {
+		screen.fill(0xFF00FF00);
+		cube.render(screen);
 	}
 	
 	public static void main(String[] args) {

@@ -22,10 +22,26 @@ public class GameLoop {
 	}
 	
 	/**
+	 * A structural tick method (called when the game is paused) to be overwritten by classes that inherit from this class.
+	 * @param input the input object to be used.
+	 */
+	public void tickPaused(InputHandler input) {
+		
+	}
+	
+	/**
 	 * A structural render method to be overwritten by classes that inherit from this class.
 	 * @param screen the screen object to be used for rendering.
 	 */
 	public void render(Screen screen) {
+		
+	}
+	
+	/**
+	 * A structural render method (called when the game is paused) to be overwritten by classes that inherit from this class.
+	 * @param screen the screen object to be used for rendering.
+	 */
+	public void renderPaused(Screen screen) {
 		
 	}
 	
