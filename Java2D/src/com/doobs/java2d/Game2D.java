@@ -250,7 +250,6 @@ public class Game2D extends Canvas implements Runnable {
 	 */
 	public void render() {
 		graphics = bufferStrategy.getDrawGraphics();
-		System.out.println(paused);
 		if(paused)
 			gameLoop.renderPaused(screen);
 		else
