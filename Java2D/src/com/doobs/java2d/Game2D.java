@@ -310,6 +310,13 @@ public class Game2D extends Canvas implements Runnable {
 	}
 	
 	/**
+	 * @return whether the game is paused.
+	 */
+	public boolean getPaused() {
+		return paused;
+	}
+	
+	/**
 	 * @return the BitmapLoader object to load images into the game.
 	 */
 	public BitmapLoader getBitmapLoader() {
