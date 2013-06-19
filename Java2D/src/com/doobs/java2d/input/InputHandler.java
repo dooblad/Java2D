@@ -8,7 +8,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	public boolean[] keys = new boolean[128];
 	private int oldMouseX, oldMouseY;
 	private int mouseX, mouseY;
-	private boolean mousePressed = false;
+	private boolean leftMousePressed, middleMousePressed, rightMousePressed;
 	
 	private Game2D game;
 	
@@ -21,6 +21,9 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		oldMouseY = 0;
 		mouseX = 0;
 		mouseY = 0;
+		leftMousePressed = false;
+		middleMousePressed = false;
+		rightMousePressed = false;
 	}
 	
 	// KeyListener Events
@@ -49,12 +52,24 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 			oldMouseY = mouseY;
 			mouseX = e.getX();
 			mouseY = e.getY();
-			mousePressed = true;
+			int button = e.getButton();
+			if(button == MouseEvent.BUTTON1)
+				leftMousePressed = true;
+			else if(button == MouseEvent.BUTTON2)
+				middleMousePressed = true;
+			else if(button == MouseEvent.BUTTON3)
+				rightMousePressed = true;
 		}
 	}
 	
 	public void mouseReleased(MouseEvent e) {
-		mousePressed = false;
+		int button = e.getButton();
+		if(button == MouseEvent.BUTTON1)
+			leftMousePressed = false;
+		else if(button == MouseEvent.BUTTON2)
+			middleMousePressed = false;
+		else if(button == MouseEvent.BUTTON3)
+			rightMousePressed = false;
 	}
 	
 	public void mouseDragged(MouseEvent e) {
@@ -98,7 +113,15 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		return mouseY;
 	}
 
-	public boolean isMousePressed() {
-		return mousePressed;
+	public boolean isLeftMousePressed() {
+		return leftMousePressed;
+	}
+	
+	public boolean isMiddleMousePressed() {
+		return middleMousePressed;
+	}
+	
+	public boolean isRightMousePressed() {
+		return rightMousePressed;
 	}
 }
