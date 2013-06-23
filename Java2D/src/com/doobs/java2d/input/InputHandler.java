@@ -73,7 +73,10 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	}
 	
 	public void mouseDragged(MouseEvent e) {
-		
+		if(!game.getInputStopped()) {
+			mouseX = e.getX();
+			mouseY = e.getY();
+		}
 	}
 
 	// MouseMotionListener Events

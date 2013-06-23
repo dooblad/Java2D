@@ -37,12 +37,13 @@ public class TestGame extends GameLoop{
 	}
 
 	public void render(Screen screen) {
-		screen.fill(0xFF0F0000);
+		screen.fill(0xFF00FF00);
+		screen.fillRect(0xFFFFFFFF, 100, 5, 20, 20);
 		cube.render(screen);
 	}
 	
 	public void renderPaused(Screen screen) {
-		screen.fill(0xFF00FF00);
+		screen.fill(0xFFFF0000);
 		cube.render(screen);
 	}
 	

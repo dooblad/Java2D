@@ -258,10 +258,10 @@ public class Game2D extends Canvas implements Runnable {
 		if(renderFPS) {
 			int fontSize = defaultFont.getSize();
 			graphics.setColor(Color.BLACK);
-			graphics.fillRect(0, 0, (fps + " ").length() * fontSize / 2, fontSize + 4);
+			graphics.fillRect(0, 0, (fps + "").length() * fontSize / 2 + 6, fontSize);
 			graphics.setColor(Color.WHITE);
 			graphics.setFont(defaultFont);
-			graphics.drawString(fps + " ", 3, fontSize);
+			graphics.drawString(fps + " ", 1, fontSize - 4);
 		}
 		graphics.dispose();
 		bufferStrategy.show();

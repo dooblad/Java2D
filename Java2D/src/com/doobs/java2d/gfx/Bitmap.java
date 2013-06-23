@@ -68,6 +68,20 @@ public class Bitmap {
 			pixels[i] = color;
 		}
 	}
+	
+	public void fillRect(int color, int xo, int yo, int w, int h) {
+		for(int x = 0; x < w; x++) {
+			int xx = x + xo;
+			if(xx < 0 || xx >= width)
+				continue;
+			for(int y = 0; y < h; y++) {
+				int yy = y + yo;
+				if(yy < 0 || yy >= height)
+					continue;
+				pixels[xx + yy * width] = color;
+			}
+		}
+	}
 
 	// Getters and setters
 	public int getWidth() {
