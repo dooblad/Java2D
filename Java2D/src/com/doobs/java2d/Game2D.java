@@ -352,6 +352,13 @@ public class Game2D extends Canvas implements Runnable {
 	}
 	
 	/**
+	 * @return the InputHandler object used by the game
+	 */
+	public InputHandler getInputHandler() {
+		return input;
+	}
+	
+	/**
 	 * @return whether player input has been stopped.
 	 */
 	public boolean getInputStopped() {
