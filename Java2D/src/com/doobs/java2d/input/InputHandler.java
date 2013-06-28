@@ -68,9 +68,9 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		if(button == MouseEvent.BUTTON1)
 			mouseButtons[0] = false;
 		else if(button == MouseEvent.BUTTON2)
-			mouseButtons[0] = false;
+			mouseButtons[1] = false;
 		else if(button == MouseEvent.BUTTON3)
-			mouseButtons[0] = false;
+			mouseButtons[2] = false;
 	}
 	
 	public void mouseDragged(MouseEvent e) {
