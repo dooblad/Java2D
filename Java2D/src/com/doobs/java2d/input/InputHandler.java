@@ -17,7 +17,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		game.addKeyListener(this);
 		game.addMouseListener(this);
 		game.addMouseMotionListener(this);
-		keys = new boolean[128];
+		keys = new boolean[1028];
 		mouseButtons = new boolean[3];
 		oldMouseX = 0;
 		oldMouseY = 0;
