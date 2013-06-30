@@ -56,6 +56,49 @@ public class Bitmap {
 			}
 		}
 	}
+	
+	public void drawColoredExceptFor(Bitmap bitmap, int color, int excludedColor, int xo, int yo) {
+		for (int y = 0; y < bitmap.height; y++) {
+			int yy = y + yo;
+			if (yy < 0 || yy >= height)
+				continue;
+			for (int x = 0; x < bitmap.width; x++) {
+				int xx = x + xo;
+				if (xx < 0 || xx >= width)
+					continue;
+				int sourceColor = bitmap.pixels[x + y * bitmap.width];
+				if (sourceColor == excludedColor && sourceColor < 0)
+					pixels[xx + yy * width] = sourceColor;
+				else	
+					pixels[xx + yy * width] = color;
+			}
+		}
+	}
+	
+	public void drawColoredExceptFor(Bitmap bitmap, int color, int xo, int yo, int... excludedColors) {
+		for (int y = 0; y < bitmap.height; y++) {
+			int yy = y + yo;
+			if (yy < 0 || yy >= height)
+				continue;
+			for (int x = 0; x < bitmap.width; x++) {
+				int xx = x + xo;
+				if (xx < 0 || xx >= width)
+					continue;
+				boolean excluded = false;
+				int sourceColor = bitmap.pixels[x + y * bitmap.width];
+				for (int i = 0; i < excludedColors.length; i++) {
+					if (sourceColor == excludedColors[i]) {
+						excluded = true;
+						break;
+					}
+				}
+				if (excluded && sourceColor < 0)
+					pixels[xx + yy * width] = sourceColor;
+				else	
+					pixels[xx + yy * width] = color;
+			}
+		}
+	}
 
 	public void drawPoint(int color, int xo, int yo) {
 		if (xo < 0 || xo >= width || yo < 0 || yo >= height)
