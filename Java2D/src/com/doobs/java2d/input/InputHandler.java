@@ -5,7 +5,7 @@ import java.awt.event.*;
 import com.doobs.java2d.Game2D;
 
 public class InputHandler implements KeyListener, MouseListener, MouseMotionListener {
-	public boolean[] keys;
+	public boolean[] keys, previousKeys;
 	public boolean[] mouseButtons;
 	private int oldMouseX, oldMouseY;
 	private int mouseX, mouseY;
@@ -17,12 +17,19 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		game.addKeyListener(this);
 		game.addMouseListener(this);
 		game.addMouseMotionListener(this);
-		keys = new boolean[1028];
+		keys = new boolean[512];
+		previousKeys = new boolean[512];
 		mouseButtons = new boolean[3];
 		oldMouseX = 0;
 		oldMouseY = 0;
 		mouseX = 0;
 		mouseY = 0;
+	}
+	
+	public void tick() {
+		for(int i = 0; i < keys.length; i++) {
+			previousKeys[i] = keys[i];
+		}
 	}
 	
 	// KeyListener Events
@@ -94,6 +101,11 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	
 	public void mouseExited(MouseEvent e) {
 		
+	}
+	
+	// Utility
+	public boolean isKeyPressed(int keycode) {
+		return keys[keycode] && !previousKeys[keycode];
 	}
 	
 	// Getters and setters

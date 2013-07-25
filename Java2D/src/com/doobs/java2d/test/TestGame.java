@@ -26,8 +26,8 @@ public class TestGame extends GameLoop{
 	}
 	
 	public void tick(InputHandler input, boolean paused) {
-		if(input.keys[KeyEvent.VK_SPACE])
-			game.pause();
+		if(input.isKeyPressed(KeyEvent.VK_W))
+			System.out.println("true");
 		cube.tick(input);
 	}
 	

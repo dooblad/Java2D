@@ -170,6 +170,7 @@ public class Game2D extends Canvas implements Runnable {
 					inputStopCounter = 0;
 				}
 				gameLoop.tick(input, paused);
+				input.tick();
 				if(--pauseCounter <= 0)
 					paused = false;
 				ticked = true;
