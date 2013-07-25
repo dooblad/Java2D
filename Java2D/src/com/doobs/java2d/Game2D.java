@@ -30,7 +30,7 @@ public class Game2D extends Canvas implements Runnable {
 	private static final int DEFAULT_WIDTH = 640;
 	private static final int DEFAULT_HEIGHT = 480;
 	private static final int DEFAULT_SCALE = 1;
-	private static final String DEFAULT_TITLE = "Generic Java2D Window";
+	private static final String DEFAULT_TITLE = "Default Java2D Window";
 
 	private int scale;
 	private String title;
@@ -169,13 +169,9 @@ public class Game2D extends Canvas implements Runnable {
 					inputStopped = false;
 					inputStopCounter = 0;
 				}
-				if(!paused) {
-					gameLoop.tick(input);
-				} else if(pauseCounter == -1) {
-					gameLoop.tickPaused(input);
-				} else if(--pauseCounter <= 0){
+				gameLoop.tick(input, paused);
+				if(--pauseCounter <= 0)
 					paused = false;
-				}
 				ticked = true;
 				tickCount++;
 				if (tickCount % 60 == 0) {
@@ -250,10 +246,7 @@ public class Game2D extends Canvas implements Runnable {
 	 */
 	public void render() {
 		graphics = bufferStrategy.getDrawGraphics();
-		if(paused)
-			gameLoop.renderPaused(screen);
-		else
-			gameLoop.render(screen);
+		gameLoop.render(screen, paused);
 		graphics.drawImage(screen.image, 0, 0, getWidth(), getHeight(), null);
 		if(renderFPS) {
 			int fontSize = defaultFont.getSize();

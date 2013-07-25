@@ -25,26 +25,16 @@ public class TestGame extends GameLoop{
 		game.start();
 	}
 	
-	public void tick(InputHandler input) {
+	public void tick(InputHandler input, boolean paused) {
 		if(input.keys[KeyEvent.VK_SPACE])
 			game.pause();
 		cube.tick(input);
 	}
 	
-	public void tickPaused(InputHandler input) {
-		if(input.keys[KeyEvent.VK_ENTER])
-			game.unpause();
-	}
-
-	public void render(Screen screen) {
+	public void render(Screen screen, boolean paused) {
 		screen.fill(0xFF00FF00);
 		screen.fillRect(0xFFFFFFFF, 100, 5, 20, 20);
 		screen.drawColoredExceptFor(Bitmaps.cube, 0xFFFF0000, 0, 0, 0xFFFFBF00, 0xFF2B9CFF);
-		cube.render(screen);
-	}
-	
-	public void renderPaused(Screen screen) {
-		screen.fill(0xFFFF0000);
 		cube.render(screen);
 	}
 	
