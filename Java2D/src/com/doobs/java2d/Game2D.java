@@ -23,6 +23,7 @@ import javax.swing.JFrame;
 import com.doobs.java2d.gfx.BitmapLoader;
 import com.doobs.java2d.gfx.Screen;
 import com.doobs.java2d.input.InputHandler;
+import com.doobs.java2d.input.WindowHandler;
 
 public class Game2D extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -54,6 +55,8 @@ public class Game2D extends Canvas implements Runnable {
 	private InputHandler input;
 	private int inputStopCounter;
 	private boolean inputStopped;
+	
+	private WindowHandler windowHandler;
 	
 	private int fps;
 	private boolean vSync;
@@ -94,6 +97,7 @@ public class Game2D extends Canvas implements Runnable {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		input = new InputHandler(this);
+		windowHandler = new WindowHandler(this);
 		bitmapLoader = new BitmapLoader();
 	}
 	
@@ -311,6 +315,13 @@ public class Game2D extends Canvas implements Runnable {
 	}
 	
 	/**
+	 * @return the JFrame object 
+	 */
+	public JFrame getFrame() {
+		return frame;
+	}
+	
+	/**
 	 * @return the BitmapLoader object to load images into the game.
 	 */
 	public BitmapLoader getBitmapLoader() {
@@ -346,10 +357,17 @@ public class Game2D extends Canvas implements Runnable {
 	}
 	
 	/**
-	 * @return the InputHandler object used by the game
+	 * @return the InputHandler object
 	 */
 	public InputHandler getInputHandler() {
 		return input;
+	}
+	
+	/**
+	 * @return the WindowHandler object
+	 */
+	public WindowHandler getWindowHandler() {
+		return windowHandler;
 	}
 	
 	/**
