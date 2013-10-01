@@ -5,6 +5,8 @@ import java.awt.event.*;
 import com.doobs.java2d.Game2D;
 
 public class InputHandler implements KeyListener, MouseListener, MouseMotionListener {
+	private static final int DEFAULT_KEY_RANGE = 512;
+	
 	public boolean[] keys, previousKeys;
 	public boolean[] mouseButtons;
 	private int oldMouseX, oldMouseY;
@@ -13,18 +15,23 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	private Game2D game;
 	
 	public InputHandler(Game2D game) {
+		this(game, DEFAULT_KEY_RANGE);
+	}
+	
+	public InputHandler(Game2D game, int keyRange) {
 		this.game = game;
 		game.addKeyListener(this);
 		game.addMouseListener(this);
 		game.addMouseMotionListener(this);
-		keys = new boolean[512];
-		previousKeys = new boolean[512];
+		keys = new boolean[keyRange];
+		previousKeys = new boolean[keyRange];
 		mouseButtons = new boolean[3];
 		oldMouseX = 0;
 		oldMouseY = 0;
 		mouseX = 0;
 		mouseY = 0;
 	}
+
 	
 	public void tick() {
 		for(int i = 0; i < keys.length; i++) {
@@ -106,6 +113,11 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	// Utility
 	public boolean isKeyPressed(int keycode) {
 		return keys[keycode] && !previousKeys[keycode];
+	}
+	
+	public void setKeyRange(int keyRange) {
+		keys = new boolean[keyRange];
+		previousKeys = new boolean[keyRange];
 	}
 	
 	// Getters and setters

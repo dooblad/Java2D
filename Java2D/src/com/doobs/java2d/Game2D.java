@@ -78,6 +78,7 @@ public class Game2D extends Canvas implements Runnable {
 		this.gameLoop = gameLoop;
 		paused = false;
 		pauseCounter = 0;
+		running = false;
 		defaultFont = new Font("Consolas", 0, 16);
 		inputStopCounter = 0;
 		inputStopped = false;
@@ -167,6 +168,7 @@ public class Game2D extends Canvas implements Runnable {
 			long currentTime = System.nanoTime();
 			unprocessedSeconds += (currentTime - previousTime) / 1000000000.0;
 			previousTime = currentTime;
+			
 			while (unprocessedSeconds >= secondsPerTick) {
 				unprocessedSeconds -= secondsPerTick;
 				if(inputStopped && --inputStopCounter <= 0) {

@@ -13,15 +13,15 @@ public class Bitmap {
 	public void draw(Bitmap bitmap, int xo, int yo) {
 		for (int y = 0; y < bitmap.height; y++) {
 			int yy = y + yo;
-			if (yy < 0 || yy >= height)
+			if (yy < 0 || yy >= this.height)
 				continue;
 			for (int x = 0; x < bitmap.width; x++) {
 				int xx = x + xo;
-				if (xx < 0 || xx >= width)
+				if (xx < 0 || xx >= this.width)
 					continue;
 				int color = bitmap.pixels[x + y * bitmap.width];
 				if (color < 0)
-					pixels[xx + yy * width] = color;
+					pixels[xx + yy * this.width] = color;
 			}
 		}
 	}
@@ -29,15 +29,15 @@ public class Bitmap {
 	public void drawReverse(Bitmap bitmap, int xo, int yo) {
 		for (int y = 0; y < bitmap.height; y++) {
 			int yy = y + yo;
-			if (yy < 0 || yy >= height)
+			if (yy < 0 || yy >= this.height)
 				continue;
 			for (int x = 0; x < bitmap.width; x++) {
 				int xx = bitmap.width - x + xo;
-				if (xx < 0 || xx >= width)
+				if (xx < 0 || xx >= this.width)
 					continue;
 				int color = bitmap.pixels[x + y * bitmap.width];
 				if (color < 0)
-					pixels[xx + yy * width] = color;
+					pixels[xx + yy * this.width] = color;
 			}
 		}
 	}
@@ -45,14 +45,14 @@ public class Bitmap {
 	public void drawColored(Bitmap bitmap, int color, int xo, int yo) {
 		for (int y = 0; y < bitmap.height; y++) {
 			int yy = y + yo;
-			if (yy < 0 || yy >= height)
+			if (yy < 0 || yy >= this.height)
 				continue;
 			for (int x = 0; x < bitmap.width; x++) {
 				int xx = x + xo;
-				if (xx < 0 || xx >= width)
+				if (xx < 0 || xx >= this.width)
 					continue;
 				if (bitmap.pixels[x + y * bitmap.width] < 0)
-					pixels[xx + yy * width] = color;
+					pixels[xx + yy * this.width] = color;
 			}
 		}
 	}
@@ -60,17 +60,17 @@ public class Bitmap {
 	public void drawColoredExceptFor(Bitmap bitmap, int color, int excludedColor, int xo, int yo) {
 		for (int y = 0; y < bitmap.height; y++) {
 			int yy = y + yo;
-			if (yy < 0 || yy >= height)
+			if (yy < 0 || yy >= this.height)
 				continue;
 			for (int x = 0; x < bitmap.width; x++) {
 				int xx = x + xo;
-				if (xx < 0 || xx >= width)
+				if (xx < 0 || xx >= this.width)
 					continue;
 				int sourceColor = bitmap.pixels[x + y * bitmap.width];
 				if (sourceColor == excludedColor && sourceColor < 0)
-					pixels[xx + yy * width] = sourceColor;
+					pixels[xx + yy * this.width] = sourceColor;
 				else	
-					pixels[xx + yy * width] = color;
+					pixels[xx + yy * this.width] = color;
 			}
 		}
 	}
@@ -78,11 +78,11 @@ public class Bitmap {
 	public void drawColoredExceptFor(Bitmap bitmap, int color, int xo, int yo, int... excludedColors) {
 		for (int y = 0; y < bitmap.height; y++) {
 			int yy = y + yo;
-			if (yy < 0 || yy >= height)
+			if (yy < 0 || yy >= this.height)
 				continue;
 			for (int x = 0; x < bitmap.width; x++) {
 				int xx = x + xo;
-				if (xx < 0 || xx >= width)
+				if (xx < 0 || xx >= this.width)
 					continue;
 				boolean excluded = false;
 				int sourceColor = bitmap.pixels[x + y * bitmap.width];
@@ -101,9 +101,24 @@ public class Bitmap {
 	}
 
 	public void drawPoint(int color, int xo, int yo) {
-		if (xo < 0 || xo >= width || yo < 0 || yo >= height)
+		if (xo < 0 || xo >= this.width || yo < 0 || yo >= this.height)
 			return;
-		pixels[xo + yo * width] = color;
+		pixels[xo + yo * this.width] = color;
+	}
+	
+	public void drawRect(int color, int xo, int yo, int width, int height) {
+		for(int x = 0; x < width; x++) {
+			int xx = x + xo;
+			if(xx < 0 || xx >= this.width)
+				continue;
+			for(int y = 0; y < height; y++) {
+				int yy = y + yo;
+				if(yy < 0 || yy >= this.height)
+					continue;
+				if(x == 0 || x == height - 1 || y == 0 || y == height - 1)
+					pixels[xx + yy * this.width] = color;
+			}
+		}
 	}
 
 	public void fill(int color) {
@@ -115,13 +130,13 @@ public class Bitmap {
 	public void fillRect(int color, int xo, int yo, int w, int h) {
 		for(int x = 0; x < w; x++) {
 			int xx = x + xo;
-			if(xx < 0 || xx >= width)
+			if(xx < 0 || xx >= this.width)
 				continue;
 			for(int y = 0; y < h; y++) {
 				int yy = y + yo;
-				if(yy < 0 || yy >= height)
+				if(yy < 0 || yy >= this.height)
 					continue;
-				pixels[xx + yy * width] = color;
+				pixels[xx + yy * this.width] = color;
 			}
 		}
 	}
