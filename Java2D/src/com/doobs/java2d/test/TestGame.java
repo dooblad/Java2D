@@ -30,6 +30,7 @@ public class TestGame extends GameLoop{
 	public void render(Screen screen, boolean paused) {
 		screen.fill(0xFF00FF00);
 		screen.drawColoredExceptFor(Bitmaps.cube, 0xFFFF0000, 0, 0, 0xFFFFBF00, 0xFF2B9CFF);
+		screen.drawRect(0xFFFFFFFF, 0, 0, 128, 32);
 		cube.render(screen);
 	}
 	

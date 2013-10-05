@@ -115,7 +115,7 @@ public class Bitmap {
 				int yy = y + yo;
 				if(yy < 0 || yy >= this.height)
 					continue;
-				if(x == 0 || x == height - 1 || y == 0 || y == height - 1)
+				if(x == 0 || x == width - 1 || y == 0 || y == height - 1)
 					pixels[xx + yy * this.width] = color;
 			}
 		}
