@@ -16,11 +16,13 @@ public class MoveCube {
 	
 	public void tick(InputHandler input) {
 		// Divide by scale of game
-		x = input.getMouseX() / 4 - Bitmaps.cube.getWidth() / 2;
-		y = input.getMouseY() / 4 - Bitmaps.cube.getHeight() / 2;
+		x = input.getMouseX() / TestGame.SCALE - Bitmaps.cube.getWidth() / 2;
+		y = input.getMouseY() / TestGame.SCALE - Bitmaps.cube.getHeight() / 2;
 	}
 	
 	public void render(Screen screen) {
+		screen.drawCW(Bitmaps.cube, (int) x - Bitmaps.cube.getHeight() - 4, (int) y);
 		screen.draw(Bitmaps.cube, (int) x, (int) y);
+		screen.drawCCW(Bitmaps.cube, (int) x + Bitmaps.cube.getWidth() + 4, (int) y);
 	}
 }

@@ -26,22 +26,6 @@ public class Bitmap {
 		}
 	}
 
-	/*public void drawReverse(Bitmap bitmap, int xo, int yo) {
-		for (int y = 0; y < bitmap.height; y++) {
-			int yy = y + yo;
-			if (yy < 0 || yy >= this.height)
-				continue;
-			for (int x = 0; x < bitmap.width; x++) {
-				int xx = bitmap.width - x + xo;
-				if (xx < 0 || xx >= this.width)
-					continue;
-				int color = bitmap.pixels[x + y * bitmap.width];
-				if (color < 0)
-					pixels[xx + yy * this.width] = color;
-			}
-		}
-	}*/
-	
 	public void drawFlipped(Bitmap bitmap, int xo, int yo, byte bitMask) {
 		if((bitMask & 0x11) == 0x11) {
 			for (int y = 0; y < bitmap.height; y++) {
@@ -88,6 +72,38 @@ public class Bitmap {
 		}
 		
 		
+	}
+	
+	public void drawCW(Bitmap bitmap, int xo, int yo) {
+		for (int y = 0; y < bitmap.width; y++) {
+			int yy = y + yo;
+			if (yy < 0 || yy >= this.height)
+				continue;
+			for (int x = 0; x < bitmap.height; x++) {
+				int xx = bitmap.height - x + xo;
+				if (xx < 0 || xx >= this.width)
+					continue;
+				int color = bitmap.pixels[y + x * bitmap.width];
+				if (color < 0)
+					pixels[xx + yy * this.width] = color;
+			}
+		}
+	}
+	
+	public void drawCCW(Bitmap bitmap, int xo, int yo) {
+		for (int y = 0; y < bitmap.width; y++) {
+			int yy = bitmap.width - y + yo;
+			if (yy < 0 || yy >= this.height)
+				continue;
+			for (int x = 0; x < bitmap.height; x++) {
+				int xx = x + xo;
+				if (xx < 0 || xx >= this.width)
+					continue;
+				int color = bitmap.pixels[y + x * bitmap.width];
+				if (color < 0)
+					pixels[xx + yy * this.width] = color;
+			}
+		}
 	}
 	
 	public void drawColored(Bitmap bitmap, int color, int xo, int yo) {
