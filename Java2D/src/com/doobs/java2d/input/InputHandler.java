@@ -11,6 +11,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	public boolean[] mouseButtons;
 	private int oldMouseX, oldMouseY;
 	private int mouseX, mouseY;
+	private int mouseXA, mouseYA;
 	
 	private Game2D game;
 	
@@ -23,13 +24,15 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		game.addKeyListener(this);
 		game.addMouseListener(this);
 		game.addMouseMotionListener(this);
-		keys = new boolean[keyRange];
-		previousKeys = new boolean[keyRange];
-		mouseButtons = new boolean[3];
-		oldMouseX = 0;
-		oldMouseY = 0;
-		mouseX = 0;
-		mouseY = 0;
+		this.keys = new boolean[keyRange];
+		this.previousKeys = new boolean[keyRange];
+		this.mouseButtons = new boolean[3];
+		this.oldMouseX = 0;
+		this.oldMouseY = 0;
+		this.mouseX = 0;
+		this.mouseY = 0;
+		this.mouseXA = 0;
+		this.mouseYA = 0;
 	}
 
 	
@@ -67,6 +70,8 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 			oldMouseY = mouseY;
 			mouseX = e.getX();
 			mouseY = e.getY();
+			mouseXA = mouseX - oldMouseX;
+			mouseYA = mouseY - oldMouseY;
 			int button = e.getButton();
 			if(button == MouseEvent.BUTTON1)
 				mouseButtons[0] = true;
@@ -89,16 +94,24 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	
 	public void mouseDragged(MouseEvent e) {
 		if(!game.getInputStopped()) {
+			oldMouseX = mouseX;
+			oldMouseY = mouseY;
 			mouseX = e.getX();
 			mouseY = e.getY();
+			mouseXA = mouseX - oldMouseX;
+			mouseYA = mouseY - oldMouseY;
 		}
 	}
 
 	// MouseMotionListener Events
 	public void mouseMoved(MouseEvent e) {
 		if(!game.getInputStopped()) {
+			oldMouseX = mouseX;
+			oldMouseY = mouseY;
 			mouseX = e.getX();
 			mouseY = e.getY();
+			mouseXA = mouseX - oldMouseX;
+			mouseYA = mouseY - oldMouseY;
 		}
 	}
 	
@@ -139,6 +152,22 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
 	public int getMouseY() {
 		return mouseY;
+	}
+	
+	public int getMouseXA() {
+		return mouseXA;
+	}
+	
+	public void setMouseXA(int mouseXA) {
+		this.mouseXA = mouseXA;
+	}
+	
+	public int getMouseYA() {
+		return mouseYA;
+	}
+	
+	public void setMouseYA(int mouseYA) {
+		this.mouseYA = mouseYA;
 	}
 
 	public boolean isLeftMousePressed() {

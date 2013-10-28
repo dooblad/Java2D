@@ -105,7 +105,43 @@ public class BitmapLoader {
 		return result;
 	}
 	
-	public Bitmap[][] loadTileSheet(String URL, int tilesX, int tilesY) {
+	public Bitmap[] load1DTileSheet(String URL, int tilesX) {
+		try {
+			BufferedImage image = ImageIO.read(new File(URL));
+			int width = image.getWidth();
+			int tileWidth = width / tilesX;
+			Bitmap[] result = new Bitmap[tilesX];
+
+			for (int x = 0; x < tilesX; x++) {
+					result[x] = new Bitmap(tileWidth, image.getHeight());
+					for (int yy = 0; yy < image.getHeight(); yy++) {
+						for (int xx = 0; xx < tileWidth; xx++) {
+							int xxx = xx + x * tileWidth;
+							
+							int col = image.getRGB(xxx, yy);
+							if(ignoredColors != null) {
+								boolean writePixel = true;
+								for(int i = 0; i < ignoredColors.length; i++) {
+									if((col & 0xFFFFFF) == ignoredColors[i]) {
+										writePixel = false;
+									}
+								}
+								if(writePixel)
+									result[x].pixels[xx + yy * tileWidth] = image.getRGB(xxx, yy);
+							} else {
+								result[x].pixels[xx + yy * tileWidth] = image.getRGB(xxx, yy);
+							}
+						}
+					}
+				}
+			return result;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Bitmap[][] load2DTileSheet(String URL, int tilesX, int tilesY) {
 		try {
 			BufferedImage image = ImageIO.read(new File(URL));
 			int width = image.getWidth();
