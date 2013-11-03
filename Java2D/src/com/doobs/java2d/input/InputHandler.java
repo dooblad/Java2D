@@ -8,7 +8,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	private static final int DEFAULT_KEY_RANGE = 512;
 	
 	public boolean[] keys, previousKeys;
-	public boolean[] mouseButtons;
+	public boolean[] mouseButtons, previousMouseButtons;
 	private int oldMouseX, oldMouseY;
 	private int mouseX, mouseY;
 	private int mouseXA, mouseYA;
@@ -27,6 +27,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		this.keys = new boolean[keyRange];
 		this.previousKeys = new boolean[keyRange];
 		this.mouseButtons = new boolean[3];
+		this.previousMouseButtons = new boolean[3];
 		this.oldMouseX = 0;
 		this.oldMouseY = 0;
 		this.mouseX = 0;
@@ -40,11 +41,14 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		for(int i = 0; i < keys.length; i++) {
 			previousKeys[i] = keys[i];
 		}
+		
+		for(int i = 0; i < mouseButtons.length; i++) {
+			previousMouseButtons[i] = mouseButtons[i];
+		}
 	}
 	
 	// KeyListener Events
 	public void keyPressed(KeyEvent e) {
-		
 		if(!game.getInputStopped()) {
 			keys[e.getKeyCode()] = true;
 		}
@@ -128,6 +132,18 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		return keys[keycode] && !previousKeys[keycode];
 	}
 	
+	public boolean isLeftMousePressed() {
+		return mouseButtons[0] && !previousMouseButtons[0];
+	}
+	
+	public boolean isMiddleMousePressed() {
+		return mouseButtons[1] && !previousMouseButtons[1];
+	}
+	
+	public boolean isRightMousePressed() {
+		return mouseButtons[2] && !previousMouseButtons[2];
+	}
+	
 	public void setKeyRange(int keyRange) {
 		keys = new boolean[keyRange];
 		previousKeys = new boolean[keyRange];
@@ -170,15 +186,15 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		this.mouseYA = mouseYA;
 	}
 
-	public boolean isLeftMousePressed() {
+	public boolean isLeftMouseDown() {
 		return mouseButtons[0];
 	}
 	
-	public boolean isMiddleMousePressed() {
+	public boolean isMiddleMouseDown() {
 		return mouseButtons[1];
 	}
 	
-	public boolean isRightMousePressed() {
+	public boolean isRightMouseDown() {
 		return mouseButtons[2];
 	}
 }
