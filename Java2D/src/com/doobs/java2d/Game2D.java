@@ -33,6 +33,7 @@ public class Game2D extends Canvas implements Runnable {
 	private static final int DEFAULT_SCALE = 1;
 	private static final String DEFAULT_TITLE = "Default Java2D Window";
 
+	private int width, height;
 	private int scale;
 	private String title;
 	
@@ -73,20 +74,22 @@ public class Game2D extends Canvas implements Runnable {
 	 * @param gameLoop the GameLoop object with custom tick, render, and printFPS methods.
 	 */
 	public Game2D(int width, int height, int scale, String title, GameLoop gameLoop) {
+		this.width = width;
+		this.height = height;
 		this.scale = scale;
 		this.title = title;
 		this.gameLoop = gameLoop;
-		paused = false;
-		pauseCounter = 0;
-		running = false;
-		defaultFont = new Font("Consolas", 0, 16);
-		inputStopCounter = 0;
-		inputStopped = false;
+		this.paused = false;
+		this.pauseCounter = 0;
+		this.running = false;
+		this.defaultFont = new Font("Consolas", 0, 16);
+		this.inputStopCounter = 0;
+		this.inputStopped = false;
 		Dimension canvasSize = new Dimension(width * scale, height * scale);
-		setSize(canvasSize);
-		setPreferredSize(canvasSize);
-		setMinimumSize(canvasSize);
-		setMaximumSize(canvasSize);
+		super.setSize(canvasSize);
+		super.setPreferredSize(canvasSize);
+		super.setMinimumSize(canvasSize);
+		super.setMaximumSize(canvasSize);
 		screen = new Screen(width, height);
 		frame = new JFrame(title);
 		frame.setFocusable(true);
@@ -254,7 +257,7 @@ public class Game2D extends Canvas implements Runnable {
 	public void render() {
 		graphics = bufferStrategy.getDrawGraphics();
 		gameLoop.render(screen, paused);
-		graphics.drawImage(screen.image, 0, 0, getWidth(), getHeight(), null);
+		graphics.drawImage(screen.image, 0, 0, super.getWidth(), super.getHeight(), null);
 		if(renderFPS) {
 			int fontSize = defaultFont.getSize();
 			graphics.setColor(Color.BLACK);
@@ -281,6 +284,56 @@ public class Game2D extends Canvas implements Runnable {
 	
 	// Getters and Setters
 	/**
+	 * @return the width of the non-scaled game data.
+	 */
+	public int getScreenWidth() {
+		return screen.getWidth();
+	}
+	
+	/**
+	 * Sets the width variable and resizes the game window.
+	 * @param width
+	 */
+	public void setScreenWidth(int width) {
+		this.width = width;
+		screen = new Screen(width, height);
+		frame.pack();
+	}
+	
+	/**
+	 * @return the height of the non-scaled game data.
+	 */
+	public int getScreenHeight() {
+		return screen.getHeight();
+	}
+	
+	/**
+	 * Sets the height variable and resizes the game window.
+	 * @param height
+	 */
+	public void setScreenHeight(int height) {
+		this.height = height;
+		screen = new Screen(width, height);
+		frame.pack();
+	}
+	
+	/**
+	 * Sets both the width and height variable and resizes the game window.
+	 */
+	public void setScreenSize(int width, int height) {
+		this.width = width;
+		this.height = height;
+		Dimension canvasSize = new Dimension(width * scale, height * scale);
+		super.setSize(canvasSize);
+		super.setPreferredSize(canvasSize);
+		super.setMinimumSize(canvasSize);
+		super.setMaximumSize(canvasSize);
+		screen = new Screen(width, height);
+		//frame.pack();
+		frame.setSize(width * scale, height * scale);
+	}
+	
+	/**
 	 * @return the current scaling factor being applied to the image.
 	 */
 	public int getScale() {
@@ -292,7 +345,14 @@ public class Game2D extends Canvas implements Runnable {
 	 */
 	public void setScale(int scale) {
 		this.scale = scale;
-		if(scale > 0) frame.setSize(getWidth() / this.scale * scale, getHeight() / this.scale * scale);
+		if(scale > 0) {
+			Dimension canvasSize = new Dimension(this.width * scale, this.height * scale);
+			setSize(canvasSize);
+			setPreferredSize(canvasSize);
+			setMinimumSize(canvasSize);
+			setMaximumSize(canvasSize);
+			frame.pack();
+		}
 	}
 	
 	/**
