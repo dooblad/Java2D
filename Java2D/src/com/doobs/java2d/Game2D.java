@@ -31,7 +31,7 @@ public class Game2D extends Canvas implements Runnable {
 	private static final int DEFAULT_WIDTH = 640;
 	private static final int DEFAULT_HEIGHT = 480;
 	private static final int DEFAULT_SCALE = 1;
-	private static final String DEFAULT_TITLE = "Default Java2D Window";
+	private static final String DEFAULT_TITLE = "Java2D";
 
 	private int width, height;
 	private int scale;
@@ -381,6 +381,13 @@ public class Game2D extends Canvas implements Runnable {
 	 */
 	public JFrame getFrame() {
 		return frame;
+	}
+	
+	/**
+	 * @return the Screen object
+	 */
+	public Screen getScreen() {
+		return screen;
 	}
 	
 	/**
