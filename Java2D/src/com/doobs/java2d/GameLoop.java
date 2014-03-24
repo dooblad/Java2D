@@ -18,7 +18,7 @@ public class GameLoop {
 	 * @param input the input object to be used.
 	 * @param paused determines if the game is paused.
 	 */
-	public void tick(InputHandler input, boolean paused) {
+	public void tick(InputHandler input) {
 		
 	}
 	
@@ -27,7 +27,7 @@ public class GameLoop {
 	 * @param screen the screen object to be used for rendering.
 	 * @param paused determines if the game is paused.
 	 */
-	public void render(Screen screen, boolean paused) {
+	public void render(Screen screen) {
 		
 	}
 	
@@ -37,7 +37,7 @@ public class GameLoop {
 	 * setRenderFPS(true) is recommended instead of this method.
 	 */
 	public void printFPS() {
-		//System.out.println("FPS: " + game.getFPS());
+		System.out.println("FPS: " + game.getFPS());
 	}
 	
 	// Getters and setters

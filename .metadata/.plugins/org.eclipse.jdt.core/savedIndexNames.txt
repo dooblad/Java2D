@@ -1,0 +1,2 @@
+INDEX VERSION 1.126+C:\Users\Logan\git\Java2D\.metadata\.plugins\org.eclipse.jdt.core
+3892880613.index

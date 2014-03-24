@@ -37,9 +37,6 @@ public class Game2D extends Canvas implements Runnable {
 	private int scale;
 	private String title;
 	
-	private boolean paused;
-	private int pauseCounter;
-	
 	private Font defaultFont;
 	
 	private JFrame frame;
@@ -79,8 +76,6 @@ public class Game2D extends Canvas implements Runnable {
 		this.scale = scale;
 		this.title = title;
 		this.gameLoop = gameLoop;
-		this.paused = false;
-		this.pauseCounter = 0;
 		this.running = false;
 		this.defaultFont = new Font("Consolas", 0, 16);
 		this.inputStopCounter = 0;
@@ -178,10 +173,8 @@ public class Game2D extends Canvas implements Runnable {
 					inputStopped = false;
 					inputStopCounter = 0;
 				}
-				gameLoop.tick(input, paused);
+				gameLoop.tick(input);
 				input.tick();
-				if(--pauseCounter <= 0)
-					paused = false;
 				ticked = true;
 				tickCount++;
 				if (tickCount % 60 == 0) {
@@ -219,31 +212,6 @@ public class Game2D extends Canvas implements Runnable {
 	}
 	
 	/**
-	 * Pauses the game for the specified number of ticks.
-	 * @param ticks the number of ticks for the game to wait.
-	 */
-	public void pauseFor(int ticks) {
-		paused = true;
-		pauseCounter = ticks;
-	}
-	
-	/**
-	 * Pauses the game until the unpause() method is called.
-	 */
-	public void pause() {
-		paused = true;
-		pauseCounter = -1;
-	}
-	
-	/**
-	 * Unpauses the game.
-	 */
-	public void unpause() {
-		paused = false;
-		pauseCounter = 0;
-	}
-	
-	/**
 	 * Initializes double buffering and gets a buffer strategy.
 	 */
 	public void preRender() {
@@ -256,7 +224,7 @@ public class Game2D extends Canvas implements Runnable {
 	 */
 	public void render() {
 		graphics = bufferStrategy.getDrawGraphics();
-		gameLoop.render(screen, paused);
+		gameLoop.render(screen);
 		graphics.drawImage(screen.image, 0, 0, super.getWidth(), super.getHeight(), null);
 		if(renderFPS) {
 			int fontSize = defaultFont.getSize();
@@ -367,13 +335,6 @@ public class Game2D extends Canvas implements Runnable {
 	 */
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	
-	/**
-	 * @return whether the game is paused.
-	 */
-	public boolean getPaused() {
-		return paused;
 	}
 	
 	/**

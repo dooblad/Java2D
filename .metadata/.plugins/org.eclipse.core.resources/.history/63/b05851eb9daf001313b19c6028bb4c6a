@@ -40,7 +40,7 @@ public class TestGame extends GameLoop{
 	
 	public void render(Screen screen) {
 		screen.fill(0xFF00FF00);
-		screen.drawFlipped(Bitmaps.cube, 0, 0, (byte) 0x00);
+		//screen.drawFlipped(Bitmaps.cube, 0, 0, (byte) 0x00);
 		cube.render(screen);
 	}
 	

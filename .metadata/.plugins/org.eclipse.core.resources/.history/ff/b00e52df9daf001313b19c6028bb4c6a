@@ -29,7 +29,7 @@ public class TestGame extends GameLoop{
 		test = false;
 	}
 	
-	public void tick(InputHandler input) {
+	public void tick(InputHandler input, boolean paused) {
 		cube.tick(input);
 		if(input.isKeyPressed(KeyEvent.VK_G)) {
 			test = !test;
@@ -38,7 +38,7 @@ public class TestGame extends GameLoop{
 			
 	}
 	
-	public void render(Screen screen) {
+	public void render(Screen screen, boolean paused) {
 		screen.fill(0xFF00FF00);
 		screen.drawFlipped(Bitmaps.cube, 0, 0, (byte) 0x00);
 		cube.render(screen);

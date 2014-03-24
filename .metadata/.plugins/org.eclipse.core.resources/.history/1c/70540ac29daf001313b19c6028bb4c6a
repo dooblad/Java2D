@@ -69,9 +69,9 @@ public class Bitmap {
 						pixels[xx + yy * this.width] = color;
 				}
 			}
-		} else if((bitMask & 0x00) == 0x00) {
+		} else if((bitMask & 0x01) == 0x01) {
 			for (int y = 0; y < bitmap.height; y++) {
-				int yy = y + yo;
+				int yy = bitmap.height - y + yo;
 				if (yy < 0 || yy >= this.height)
 					continue;
 				for (int x = 0; x < bitmap.width; x++) {
